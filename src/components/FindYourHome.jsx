@@ -188,20 +188,10 @@ export default function FindYourHome({ projects = PROJECTS_DATA }) {
       });
 
       // ==============================================
-      // MOBILE (<= 768px) — fixed pillar positioning
-      // Uses pure pixel values computed from the
-      // section's actual width and the pillar's rendered
-      // width so GSAP never has to parse calc() strings.
+      // MOBILE (<= 768px) — static final pillar & showcase positioning
+      // Eliminates mobile ScrollTrigger pinSpacing that caused 1180px+ black gap
       // ==============================================
       mm.add('(max-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
-        const TOGETHER_OFFSET = 50;
-
-        // Compute the exact pixel distance from center to the
-        // left/right edges. The pillars start centered (CSS left: 50%
-        // + GSAP xPercent: -50), so moving x by ±halfSection positions
-        // the pillar center at the viewport edge. We pull back by
-        // half the pillar width so the outer edge is flush with the
-        // section edge (plus a small gutter).
         const sectionWidth = sectionRef.current?.offsetWidth || window.innerWidth;
         const sectionHeight = sectionRef.current?.offsetHeight || window.innerHeight;
         const measuredWidth = leftPillarRef.current?.getBoundingClientRect().width;
@@ -210,96 +200,37 @@ export default function FindYourHome({ projects = PROJECTS_DATA }) {
         const gutter = 4; // px breathing room
         const halfSection = sectionWidth / 2;
         const halfPillar = pillarWidth / 2;
-        // Move pillar center to: gutter + halfPillar from edge
-        // = -(halfSection - halfPillar - gutter) from current center
         const leftOffsetPx = -(halfSection - halfPillar - gutter);
         const rightOffsetPx = halfSection - halfPillar - gutter;
 
+        // Position pillars firmly at left/right edges immediately on mobile
         gsap.set(leftPillarRef.current, {
           xPercent: -50,
-          x: -TOGETHER_OFFSET,
-          yPercent: 100,
-          opacity: 0,
+          x: leftOffsetPx,
+          yPercent: 0,
+          opacity: 1,
         });
         gsap.set(rightPillarRef.current, {
           xPercent: -50,
-          x: TOGETHER_OFFSET,
-          yPercent: 100,
-          opacity: 0,
+          x: rightOffsetPx,
+          yPercent: 0,
+          opacity: 1,
         });
 
         if (showcaseWrapRef.current) {
-          gsap.set(showcaseWrapRef.current, { opacity: 0.15, scale: 0.96 });
+          gsap.set(showcaseWrapRef.current, { opacity: 1, scale: 1 });
         }
 
         if (stickyNoteRef.current) {
           gsap.set(stickyNoteRef.current, {
-            opacity: 0,
-            scale: 0.8,
-            y: 25,
-            rotation: 0,
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            rotation: 1.2,
           });
         }
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: '+=140%',
-            scrub: 1,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            ignoreMobileResize: true,
-            onUpdate: (self) => {
-              if (self.progress >= 0.95) {
-                setIsPillarsArrived(true);
-              }
-            },
-            onLeave: () => {
-              setIsPillarsArrived(true);
-            },
-          },
-        });
-
-        // 1. Pillars rise from bottom center together (0 -> 0.4)
-        tl.to(
-          [leftPillarRef.current, rightPillarRef.current],
-          { yPercent: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }
-        )
-          // 2. Brief center hold once risen (0.4 -> 0.55)
-          .to({}, { duration: 0.15 })
-          // 3. Move outward to left/right edges (0.55 -> 1.05)
-          .to(
-            leftPillarRef.current,
-            { x: leftOffsetPx, duration: 0.5, ease: 'power3.inOut' },
-            '>'
-          )
-          .to(
-            rightPillarRef.current,
-            { x: rightOffsetPx, duration: 0.5, ease: 'power3.inOut' },
-            '<'
-          )
-          .to(
-            showcaseWrapRef.current,
-            { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' },
-            '<'
-          )
-          // 4. Sticky note appears after pillars arrive
-          .fromTo(
-            stickyNoteRef.current,
-            { opacity: 0, scale: 0.8, y: 25, rotation: 0 },
-            {
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              rotation: 1.5,
-              duration: 0.35,
-              ease: 'back.out(1.5)',
-            },
-            '>'
-          );
+        setIsPillarsArrived(true);
       });
 
       // Reduced motion: skip pinned scrub, pillars at final resting position
