@@ -4,10 +4,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./HorizontalYearScroll.css";
 
 // High-resolution architectural photography assets
-import projectImg1 from "../../../images/image3.png";
-import projectImg2 from "../../../images/image6.png";
-import projectImg3 from "../../../images/image7.png";
-import projectImg4 from "../../../images/image8.png";
+import projectImg1 from "../../../images/chet_outdoor.jpeg";
+import projectImg2 from "../../../images/chet_outdoor.jpeg";
+import projectImg3 from "../../../images/chet_entrance.png";
+import projectImg4 from "../../../images/chet_kitchen.jpeg";
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -5,10 +5,10 @@ import { useGSAP } from '@gsap/react';
 import StatsSection from './StatsSection';
 
 // Local architectural images from building_architecture/images
-import imgCour1 from '../../images/image4.png';
-import imgCour2 from '../../images/image6.png';
-import imgCour3 from '../../images/image7.png';
-import imgCour4 from '../../images/image8.png';
+import imgCour1 from '../../images/bedroom.png';
+import imgCour2 from '../../images/chet_corridor.jpeg';
+import imgCour3 from '../../images/chet_entrance.png';
+import imgCour4 from '../../images/chet_kitchen.jpeg';
 import imgCour5 from '../../images/image9.png';
 
 gsap.registerPlugin(ScrollTrigger);

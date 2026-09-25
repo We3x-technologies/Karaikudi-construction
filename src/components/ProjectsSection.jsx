@@ -3,8 +3,8 @@ import ZoomParallax from './ZoomParallax';
 
 // Authentic local architectural images
 import img1 from '../../images/image1.png';
-import img3 from '../../images/image3.png';
-import imgCour3 from '../../images/image7.png';
+import img3 from '../../images/chet_outdoor.jpeg';
+import imgCour3 from '../../images/chet_entrance.png';
 import mainMansionImg from '../../images/chettinad_mansion_image.png';
 import cloudVideo from '../../videos/clouds_over_mansion.mp4';
 

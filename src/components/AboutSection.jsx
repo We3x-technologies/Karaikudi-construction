@@ -1,6 +1,6 @@
 import React from 'react';
 import ScrollExpandPage from './ScrollExpandPage';
-import heroImage from '../../images/hero2.png';
+import heroImage from '../../images/chettinad_house.png';
 
 export default function AboutSection() {
   return (

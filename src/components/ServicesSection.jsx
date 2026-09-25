@@ -2,17 +2,21 @@ import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 
 // Local architectural images from building_architecture/images
-import imgCour1 from '../../images/image4.png';
-import imgCour2 from '../../images/image6.png';
-import imgCour3 from '../../images/image7.png';
-import imgCour4 from '../../images/image8.png';
+import imgCour1 from '../../images/bedroom.png';
+import irataiArai from '../../images/iratai_arai.png';
+import imgCour2 from '../../images/house.png';
+import imgCour3 from '../../images/chet_entrance.png';
+import imgCour4 from '../../images/chet_kitchen.jpeg';
 import imgCour5 from '../../images/image9.png';
 import athangudiTiles from '../../images/athangudi_tiles.png';
 import tiles from '../../images/tiles.jpg';
 import carvings from '../../images/carvings.png';
+import pillarCarving from '../../images/Pillar_carving.png';
 import img1 from '../../images/image1.png';
 import img2 from '../../images/image2.png';
-import img3 from '../../images/image3.png';
+import img3 from '../../images/chet_outdoor.jpeg';
+import architecturalMarvel from '../../images/architectural_marvel.jpg';
+import traditionalDesign from '../../images/Traditional_Design.jpg';
 
 const SERVICES = [
   {
@@ -22,7 +26,7 @@ const SERVICES = [
     description:
       'Designing contemporary homes inspired by Chettinad traditions, with thoughtful courtyards, thinnai spaces, generous proportions, and layouts made for modern family living.',
     image: img3,
-    supportingImages: [imgCour1, imgCour2],
+    supportingImages: [irataiArai, imgCour2],
   },
   {
     number: '02',
@@ -48,8 +52,8 @@ const SERVICES = [
     heading: ['Details Crafted', 'By Hand'],
     description:
       'Integrating handcrafted wood carvings and traditional architectural details into entrances, pillars, doors, and living spaces to give each home a distinctive Chettinad identity.',
-    image: carvings,
-    supportingImages: [imgCour4, imgCour5],
+    image: pillarCarving,
+    supportingImages: [traditionalDesign, architecturalMarvel],
   },
   {
     number: '05',

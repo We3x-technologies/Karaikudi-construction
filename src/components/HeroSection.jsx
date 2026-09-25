@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import img1 from '../../images/hero1.png';
-import img2 from '../../images/hero2.png';
+import img2 from '../../images/hero2.jpeg';
 import img3 from '../../images/hero3.png';
 import Segmented3DCube from './Segmented3DCube';
 

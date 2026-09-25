@@ -9,11 +9,11 @@ import './FindYourHome.css';
 gsap.registerPlugin(ScrollTrigger);
 
 // 5 Authentic Chettinad architectural estates
-import prop1 from '../../images/image1.png';
-import prop2 from '../../images/image3.png';
-import prop3 from '../../images/image4.png';
-import prop4 from '../../images/image6.png';
-import prop5 from '../../images/image9.png';
+import prop1 from '../../images/chet1.jpeg';
+import prop2 from '../../images/chet_back.jpeg';
+import prop3 from '../../images/chet_living_space.png';
+import prop4 from '../../images/family_gathering.png';
+import prop5 from '../../images/house2.png';
 
 const PROJECTS_DATA = [
   {
