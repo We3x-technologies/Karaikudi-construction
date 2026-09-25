@@ -188,49 +188,105 @@ export default function FindYourHome({ projects = PROJECTS_DATA }) {
       });
 
       // ==============================================
-      // MOBILE (<= 768px) — static final pillar & showcase positioning
-      // Eliminates mobile ScrollTrigger pinSpacing that caused 1180px+ black gap
+      // MOBILE (<= 768px) — scroll-triggered pillar animation WITHOUT pinning
+      // Uses toggleActions to play once when section enters viewport.
+      // No pin/pinSpacing = no black gap.
       // ==============================================
       mm.add('(max-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+        const TOGETHER_OFFSET = 60; // tighter for mobile
+
         const sectionWidth = sectionRef.current?.offsetWidth || window.innerWidth;
         const sectionHeight = sectionRef.current?.offsetHeight || window.innerHeight;
         const measuredWidth = leftPillarRef.current?.getBoundingClientRect().width;
         const pillarWidth =
           (measuredWidth && measuredWidth > 20) ? measuredWidth : (sectionHeight * 0.170713);
-        const gutter = 4; // px breathing room
+        const gutter = 4;
         const halfSection = sectionWidth / 2;
         const halfPillar = pillarWidth / 2;
         const leftOffsetPx = -(halfSection - halfPillar - gutter);
         const rightOffsetPx = halfSection - halfPillar - gutter;
 
-        // Position pillars firmly at left/right edges immediately on mobile
+        // Initial state: pillars hidden below, together in center
         gsap.set(leftPillarRef.current, {
           xPercent: -50,
-          x: leftOffsetPx,
-          yPercent: 0,
-          opacity: 1,
+          x: -TOGETHER_OFFSET,
+          yPercent: 100,
+          opacity: 0,
         });
         gsap.set(rightPillarRef.current, {
           xPercent: -50,
-          x: rightOffsetPx,
-          yPercent: 0,
-          opacity: 1,
+          x: TOGETHER_OFFSET,
+          yPercent: 100,
+          opacity: 0,
         });
 
         if (showcaseWrapRef.current) {
-          gsap.set(showcaseWrapRef.current, { opacity: 1, scale: 1 });
+          gsap.set(showcaseWrapRef.current, { opacity: 0.15, scale: 0.96 });
         }
 
         if (stickyNoteRef.current) {
           gsap.set(stickyNoteRef.current, {
+            opacity: 0,
+            scale: 0.8,
+            y: 25,
+            rotation: 0,
+          });
+        }
+
+        // Build the animation timeline — plays once when section scrolls into view
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',   // fires when top of section reaches 80% down viewport
+            end: 'top 20%',
+            toggleActions: 'play none none none', // play once, don't reverse
+            invalidateOnRefresh: true,
+            // NO pin, NO pinSpacing
+          },
+        });
+
+        // 1. Pillars rise from bottom to center
+        tl.to(
+          [leftPillarRef.current, rightPillarRef.current],
+          { yPercent: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }
+        )
+        // 2. Brief hold
+        .to({}, { duration: 0.15 })
+        // 3. Pillars part to left/right edges
+        .to(
+          leftPillarRef.current,
+          { x: leftOffsetPx, duration: 0.5, ease: 'power3.inOut' },
+          '>'
+        )
+        .to(
+          rightPillarRef.current,
+          { x: rightOffsetPx, duration: 0.5, ease: 'power3.inOut' },
+          '<'
+        )
+        // 4. Reveal showcase content
+        .to(
+          showcaseWrapRef.current,
+          { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' },
+          '<'
+        )
+        // 5. Sticky note pops in
+        .fromTo(
+          stickyNoteRef.current,
+          { opacity: 0, scale: 0.8, y: 25, rotation: 0 },
+          {
             opacity: 1,
             scale: 1,
             y: 0,
             rotation: 1.2,
-          });
-        }
-
-        setIsPillarsArrived(true);
+            duration: 0.35,
+            ease: 'back.out(1.5)',
+          },
+          '>'
+        )
+        // 6. Mark pillars arrived so the slideshow starts
+        .call(() => {
+          setIsPillarsArrived(true);
+        });
       });
 
       // Reduced motion: skip pinned scrub, pillars at final resting position
