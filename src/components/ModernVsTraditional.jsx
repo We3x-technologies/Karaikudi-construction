@@ -5,11 +5,11 @@ import './ModernVsTraditional.css';
 import imgModern1 from '../../images/modern1.png';
 import imgTrad1 from '../../images/trad1.png';
 import imgModern2 from '../../images/modern2.png';
-import imgTrad2 from '../../images/trad2.jpg';
+import imgTrad2 from '../../images/courtyard2.png';
 import imgModern3 from '../../images/modern3.png';
-import imgTrad3 from '../../images/trad3.png';
+import imgTrad3 from '../../images/lime_plaster.png';
 import imgModern4 from '../../images/modern4.png';
-import imgTrad4 from '../../images/trad4.png';
+import imgTrad4 from '../../images/courtyard.jpg';
 
 const DIFFERENCES = [
   {

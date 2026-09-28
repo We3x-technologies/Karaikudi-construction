@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react';
 import './ConnectSection.css';
 
 // Local architectural background image for left enquiry card
-import formBgImage from '../../images/image4.png';
+import formBgImage from '../../images/bedroom.png';
 
 gsap.registerPlugin(ScrollTrigger);
 

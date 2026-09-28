@@ -4,7 +4,7 @@ import './Preloader.css';
 // Critical brand and hero assets to preload
 import logo from '../../images/logo.png';
 import hero1 from '../../images/hero1.png';
-import hero2 from '../../images/hero2.png';
+import hero2 from '../../images/hero2.jpeg';
 import hero3 from '../../images/hero3.png';
 
 const CRITICAL_ASSETS = [logo, hero1, hero2, hero3];

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 // Local architectural photography from building_architecture/images
-import imgCour2 from '../../images/image6.png';
+import imgCour2 from '../../images/chet_outdoor.jpeg';
 import img1 from '../../images/image1.png';
 import img2 from '../../images/image2.png';
-import imgCour4 from '../../images/image8.png';
+import imgCour4 from '../../images/chet_kitchen.jpeg';
 
 const PROCESS_STEPS = [
   {
