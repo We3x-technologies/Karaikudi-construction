@@ -60,8 +60,8 @@ export default function ScrollExpandHero({
   finalAccent = "Explore Our Approach",
   finalDesc1 = "We design and build distinctive residences inspired by the architectural heritage of Chettinad, where craftsmanship, proportion, natural materials, and climate-responsive spaces come together.",
   finalDesc2 = "From traditional courtyards and thinnai verandahs to lime plaster, Semmann brick, Athangudi tiles, and handcrafted timber, every detail is thoughtfully adapted for contemporary living.",
-  finalContact = "+91 XXXXX XXXXX",
-  finalEmail = "hello@karaikudiconstruction.com",
+  finalContact = "+91 99886 36312",
+  finalEmail = "karaikudiconstruction@gmail.com",
 }) {
   const sectionRef = useRef(null);
   const stageRef = useRef(null);

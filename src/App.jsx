@@ -18,6 +18,11 @@ import Footer from './components/Footer';
 export default function App() {
   const headerRef = useRef(null);
 
+  // ── Section Visibility Flags ──────────────────────────────
+  // Set to `true` when genuine data is available to re-enable.
+  const SHOW_TESTIMONIALS = false;
+  const SHOW_BUILD_YOUR_HOME = false;
+
   return (
     <div className="app-root">
       <Preloader />
@@ -27,11 +32,11 @@ export default function App() {
         <AboutSection />
         <ImageShowcaseSection />
         <ServicesSection />
-        <FindYourHome />
+        {SHOW_BUILD_YOUR_HOME && <FindYourHome />}
         <WhyChooseUsSection />
         <ModernVsTraditional />
         <WorkProcessSection />
-        <TestimonialsSection />
+        {SHOW_TESTIMONIALS && <TestimonialsSection />}
         <MansionCloudSection />
         <ConnectSection />
         <MarqueeSection />

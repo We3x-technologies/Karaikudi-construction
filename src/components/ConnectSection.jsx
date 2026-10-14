@@ -221,6 +221,9 @@ export default function ConnectSection() {
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
+    if (errorMessage) {
+      setErrorMessage('');
+    }
   };
 
   // Form submission handler
@@ -235,12 +238,32 @@ export default function ConnectSection() {
     setErrorMessage('');
 
     try {
-      // Dispatch payload to backend/email API endpoint without exposing credentials in frontend
+      const targetEmail =
+        (typeof import.meta !== 'undefined' &&
+          import.meta.env &&
+          import.meta.env.VITE_ENQUIRY_EMAIL) ||
+        'karaikudiconstruction@gmail.com';
+
+      // Dispatches to custom backend/proxy if configured, or directly to secure FormSubmit AJAX endpoint.
+      // No email service credentials or SMTP secrets are exposed in client-side code.
       const endpoint =
         (typeof import.meta !== 'undefined' &&
           import.meta.env &&
           import.meta.env.VITE_ENQUIRY_API_URL) ||
-        '/api/enquiry';
+        `https://formsubmit.co/ajax/${targetEmail}`;
+
+      const payload = {
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        email: formData.email.trim(),
+        location: formData.location.trim(),
+        message: formData.message.trim(),
+        _subject: `New Project Enquiry: ${formData.name.trim()} - Karaikudi Construction`,
+        _replyto: formData.email.trim(),
+        _template: 'table',
+        _captcha: 'false',
+        submittedAt: new Date().toISOString(),
+      };
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -248,29 +271,35 @@ export default function ConnectSection() {
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          phone: formData.phone.trim(),
-          email: formData.email.trim(),
-          location: formData.location.trim(),
-          message: formData.message.trim(),
-          recipient: 'business_owner',
-          submittedAt: new Date().toISOString(),
-        }),
+        body: JSON.stringify(payload),
       });
 
-      if (response.ok) {
+      let result = null;
+      try {
+        result = await response.json();
+      } catch (_) {
+        // response may not be JSON
+      }
+
+      const isSuccessful =
+        response.ok &&
+        (!result || (result.success !== 'false' && result.success !== false));
+
+      if (isSuccessful) {
         setStatus('success');
       } else {
-        // Fallback for standalone static preview without a running backend server
-        // Simulates secure transmission to the configured business address
-        await new Promise((resolve) => setTimeout(resolve, 800));
-        setStatus('success');
+        const errorMsg =
+          (result && (result.message || result.error)) ||
+          'Unable to send your enquiry right now. Please try again or reach out to us directly.';
+        setErrorMessage(errorMsg);
+        setStatus('error');
       }
     } catch (err) {
-      // When fetch fails due to offline/no local server, gracefully complete submission
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setStatus('success');
+      console.error('Enquiry submission error:', err);
+      setErrorMessage(
+        'Unable to connect to the email service. Please check your internet connection or reach us directly at karaikudiconstruction@gmail.com or +91 99886 36312.'
+      );
+      setStatus('error');
     }
   };
 
@@ -283,6 +312,7 @@ export default function ConnectSection() {
       message: '',
     });
     setErrors({});
+    setErrorMessage('');
     setStatus('idle');
   };
 
@@ -569,10 +599,10 @@ export default function ConnectSection() {
                 <div className="connect-detail-body">
                   <h4 className="connect-detail-title">Electronic Correspondence</h4>
                   <a
-                    href="mailto:hello@karaikudiconstruction.com"
+                    href="mailto:karaikudiconstruction@gmail.com"
                     className="connect-detail-link"
                   >
-                    hello@karaikudiconstruction.com
+                    karaikudiconstruction@gmail.com
                   </a>
                   <p className="connect-detail-subtext">
                     Project enquiries reviewed within one business day
@@ -593,8 +623,8 @@ export default function ConnectSection() {
                 </div>
                 <div className="connect-detail-body">
                   <h4 className="connect-detail-title">Telephonic Inquiries</h4>
-                  <a href="tel:+037838473937" className="connect-detail-link">
-                    +0378 3847 3937
+                  <a href="tel:+919988636312" className="connect-detail-link">
+                    +91 99886 36312
                   </a>
                   <p className="connect-detail-subtext">
                     Direct line for project enquiries and architectural consultation

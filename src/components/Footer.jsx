@@ -10,6 +10,10 @@ export default function Footer() {
   const contentRef = useRef(null);
   const colRefs = useRef([]);
 
+  // ── Visibility Flag ──────────────────────────────────────────
+  // Set to `true` when the Residences / Build Your Home section is re-enabled.
+  const SHOW_RESIDENCES_LINK = false;
+
   useGSAP(
     () => {
       const tl = gsap.timeline({
@@ -76,9 +80,9 @@ export default function Footer() {
           <div className="footer-cta-block">
             <span className="footer-cta-lead">Ready to Build Your Home?</span>
             <a
-              href="tel:+919095033391"
+              href="tel:+919988636312"
               className="footer-cta-btn"
-              aria-label="Call +91 90950 33391 to Start a Project"
+              aria-label="Call +91 99886 36312 to Start a Project"
             >
               <span>Start a Project</span>
               <span className="footer-cta-arrow" aria-hidden="true">
@@ -112,11 +116,13 @@ export default function Footer() {
                   Services
                 </a>
               </li>
-              <li>
-                <a href="#find-your-home" className="footer-link">
-                  Residences
-                </a>
-              </li>
+              {SHOW_RESIDENCES_LINK && (
+                <li>
+                  <a href="#find-your-home" className="footer-link">
+                    Residences
+                  </a>
+                </li>
+              )}
               <li>
                 <a href="#why-choose-us" className="footer-link">
                   Why Choose Us
@@ -173,14 +179,14 @@ export default function Footer() {
           >
             <h3 className="footer-col-title">Direct Contact</h3>
             <div className="footer-contact-items">
-              <a href="tel:+919095033391" className="footer-contact-link">
-                +91 90950 33391
+              <a href="tel:+919988636312" className="footer-contact-link">
+                +91 99886 36312
               </a>
               <a
-                href="mailto:hello@karaikudiconstruction.com"
+                href="mailto:karaikudiconstruction@gmail.com"
                 className="footer-contact-link"
               >
-                hello@karaikudiconstruction.com
+                karaikudiconstruction@gmail.com
               </a>
               <p className="footer-address">
                 Karaikudi
@@ -199,7 +205,20 @@ export default function Footer() {
             <ul className="footer-links-list">
               <li>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.youtube.com/@BuildwithKannadhasan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer-link social-link"
+                >
+                  <span>YouTube</span>
+                  <span className="social-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/build_with_kannadhasan"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-link social-link"
@@ -212,20 +231,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="footer-link social-link"
-                >
-                  <span>LinkedIn</span>
-                  <span className="social-arrow" aria-hidden="true">
-                    ↗
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/profile.php?id=61593372892053"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-link social-link"
