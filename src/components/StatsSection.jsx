@@ -3,13 +3,13 @@ import './StatsSection.css';
 
 export const DEFAULT_STATS = [
   {
-    value: 25,
+    value: 10,
     suffix: '+',
     title: 'Years of Construction Experience',
     description: 'Mastery in heritage Chettinad architecture & modern structural execution.',
   },
   {
-    value: 15,
+    value: 50,
     suffix: '+',
     title: 'Homes & Projects',
     description: 'Custom villas, courtyard residences & bespoke heritage estates.',

@@ -88,16 +88,35 @@ export default function Header({ headerRef }) {
             aria-hidden="true"
           >
             <defs>
+              {/* Top hemisphere arc: 9 o'clock to 3 o'clock (clockwise) */}
               <path
-                id={circleId}
-                d="M60,60 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0"
+                id={`${circleId}-top`}
+                d="M 17,60 A 43,43 0 0,1 103,60"
+              />
+              {/* Bottom hemisphere arc: 3 o'clock to 9 o'clock (clockwise) */}
+              <path
+                id={`${circleId}-bottom`}
+                d="M 103,60 A 43,43 0 0,1 17,60"
               />
             </defs>
-            <text className="brand-circular-text">
-              <textPath href={`#${circleId}`} startOffset="0%">
-                KARAIKUDI • HERITAGE • CONSTRUCTION •
+
+            {/* Top Text: KARAIKUDI centered at 12 o'clock */}
+            <text className="brand-circular-text brand-text-top">
+              <textPath href={`#${circleId}-top`} startOffset="50%" textAnchor="middle">
+                KARAIKUDI
               </textPath>
             </text>
+
+            {/* Bottom Text: CONSTRUCTION centered at 6 o'clock */}
+            <text className="brand-circular-text brand-text-bottom">
+              <textPath href={`#${circleId}-bottom`} startOffset="50%" textAnchor="middle">
+                CONSTRUCTION
+              </textPath>
+            </text>
+
+            {/* Symmetrical Architectural Separators at 9 o'clock and 3 o'clock */}
+            <circle cx="17" cy="60" r="1.8" className="brand-circular-dot" />
+            <circle cx="103" cy="60" r="1.8" className="brand-circular-dot" />
           </svg>
 
           {/* Stationary Central Logo with Subtle Hover Scale */}
